@@ -2,11 +2,12 @@
 
 ## PROJECT
 
-[Project Name]
+Goose Setlist Prediction
 
 ## GOAL
 
-(1–2 sentences summarizing the purpose and outcome)
+Build a probability-based model that outputs the 25 songs most likely to be played at an upcoming
+Goose show, optimized for ≥75 % recall and precision.
 
 *For architecture, tech stack, and setup details, see [`project_context.md`](project_context.md).*
 
@@ -14,44 +15,45 @@
 
 ### Primary Persona
 
-- **Name:** [Persona name]
-- **Role:** [Job title/role]
-- **Pain Points:** [Key problems they face]
-- **Goals:** [What they want to achieve]
-- **Tech Comfort:** [Beginner/Intermediate/Advanced]
+- **Name:** Solo Developer
+- **Role:** Intermediate ML learner & music fan
+- **Pain Points:** Limited time to wrangle data; wants clear guidance and interpretable results
+- **Goals:** Quickly build a high-quality predictive pipeline and learn ML best practices
+- **Tech Comfort:** Intermediate
 
 ### Secondary Personas
 
-- [Additional user types if relevant]
+- Hardcore Goose fans (Reddit/ElGoose community) interested in show predictions and post-show analysis
+- Data-curious fans who explore setlist statistics
 
 ## USER STORIES
 
 ### Core User Stories
 
 ```markdown
-As a [user type], I want [functionality] so that [benefit/value].
+As a Goose fan, I want to see a ranked list of likely songs so that I can set my show expectations.
 
 Acceptance Criteria:
-- [ ] User can [specific action]
-- [ ] System responds with [expected behavior]
-- [ ] Error handling covers [edge cases]
+- [ ] User can request predictions for a future show date
+- [ ] System responds with top-25 song list and probability scores
+- [ ] Graceful error if date outside tour range or insufficient features
 ```
 
 **Story 1:** Core workflow
 
-- As a [primary persona], I want to [main action] so that [primary benefit].
+- As the solo developer, I want an automated training pipeline so that I can retrain the model with fresh data quickly.
 - **Priority:** Must-have
 - **Effort:** [hours]
 
 **Story 2:** Supporting feature
 
-- As a [user type], I want to [supporting action] so that [supporting benefit].
+- As a Goose fan, I want to see a simple performance dashboard so that I can understand the model's strengths and weaknesses.
 - **Priority:** Should-have
 - **Effort:** [hours]
 
 **Story 3:** Enhancement
 
-- As a [user type], I want to [enhancement] so that [additional value].
+- As a data-curious fan, I want to see a model interpretability dashboard so that I can understand why certain songs are predicted.
 - **Priority:** Nice-to-have
 - **Effort:** [hours]
 
@@ -59,75 +61,85 @@ Acceptance Criteria:
 
 ### Must-Have (MVP)
 
-- **Feature A:** [Description]
+- **Feature A:** Predictive model that outputs the 25 most probable songs for a given upcoming show
+  - User story: Core workflow
+  - Technical complexity: Medium
+  - User impact: High
   - User story: [Reference to story above]
   - Technical complexity: [Low/Medium/High]
   - User impact: [High/Medium/Low]
 
-- **Feature B:** [Description]
+- **Feature B:** Simple performance dashboard showing precision/recall and feature importances
+  - User story: Supporting feature
+  - Technical complexity: Low-Medium
+  - User impact: Medium
   - User story: [Reference to story above]
   - Technical complexity: [Low/Medium/High]
   - User impact: [High/Medium/Low]
 
 ### Should-Have (Post-MVP)
 
-- **Feature C:** [Description]
-  - Depends on: [Feature A, Feature B]
-  - Timeline: [After MVP week 1]
+- **Streamlit UI:** Lightweight web interface to input show metadata and view predictions
+  - Depends on: Feature A, Feature B
+  - Timeline: Week 4
+
+- **Feature C:** Model interpretability dashboard (SHAP summary)
+  - Depends on: trained XGBoost model
+  - Timeline: Week 3
 
 ### Nice-to-Have (Future)
 
-- **Feature D:** [Description]
-  - Timeline: [Version 2.0]
+- **Setlist Sequence Generator:** RNN/Transformers to predict actual song order
+  - Timeline: Post-MVP (Version 2.0)
+- **Mobile App Integration** – push notifications on show day
+  - Timeline: Post-MVP (Version 2.0)
 
 ## OUT OF SCOPE
 
 ### Explicitly Excluded
 
-- [Feature/functionality definitively not included]
-- [Integration that won't be built]
-- [User type that won't be supported]
+- Ticket resale price prediction
+- Real-time setlist updates during live show
+- Non-Goose bands
 
 ### Future Considerations
 
-- [Features that might be added later]
-- [Scalability concerns for future versions]
+- Scalability concerns for future versions
+- Integration with other music platforms
 
 ## ASSUMPTIONS & VALIDATIONS
 
 ### Key Assumptions
 
-1. **User Behavior:** [Assumption about how users will interact]
-   - **Validation Method:** [How to test this]
-   - **Status:** [Untested/Validated/Invalidated]
+1. **User Behavior:** Fans will use the tool to inform their show expectations and engage with the community.
+   - **Validation Method:** User testing and feedback
+   - **Status:** Untested
 
-2. **Technical Assumption:** [Assumption about technical feasibility]
-   - **Validation Method:** [How to test this]
-   - **Status:** [Untested/Validated/Invalidated]
+2. **Technical Assumption:** The predictive model can achieve ≥75 % recall and precision with the available data.
+   - **Validation Method:** Model evaluation metrics
+   - **Status:** Untested
 
-3. **Market Assumption:** [Assumption about market need]
-   - **Validation Method:** [How to test this]
-   - **Status:** [Untested/Validated/Invalidated]
+3. **Market Assumption:** There is a demand for a setlist prediction tool among Goose fans.
+   - **Validation Method:** User adoption and engagement metrics
+   - **Status:** Untested
 
 ## SUCCESS METRICS
 
 ### MVP Success Criteria
 
-- **Usage Metrics:** [Users complete core flow X times per week]
-- **Performance Metrics:** [Page load <2s, 99% uptime]
-- **User Satisfaction:** [Net Promoter Score >7]
-- **Technical Metrics:** [Test coverage >80%, <5 bugs per release]
+- **Usage Metrics:** Solo developer can generate predictions for any new show in <30 s
+- **Performance Metrics:** ≥75 % precision and ≥75 % recall on held-out test data
+- **User Satisfaction:** Qualitative feedback from 3+ Goose fans indicates predictions feel "mostly right" (>70 % perceived accuracy)
+- **Technical Metrics:** Reproducible training pipeline, ≥80 % unit-test coverage, and CI green on main
 
 ### Long-term Success Metrics
 
-- [Growth targets for 3-6 months]
-- [Engagement metrics for sustained usage]
+- Growth targets for 3-6 months
+- Engagement metrics for sustained usage
 
 ## SYSTEM DIAGRAM
 
 ```ascii
-# Insert ASCII diagram of system components here
-# Example:
 +-------------+      +------------+     +------------+
 | Web UI      | ---> | API Server | --> | Database   |
 +-------------+      +------------+     +------------+
@@ -139,8 +151,6 @@ Acceptance Criteria:
 ## DATA FLOW
 
 ```ascii
-# Insert data flow diagram here
-# Example:
 [User Input] --> [Validation] --> [Processing] --> [Storage]
      |              |                  |              |
      v              v                  v              v
@@ -151,24 +161,24 @@ Acceptance Criteria:
 
 ### Technical Risks
 
-| Risk | Probability | Impact | Mitigation | Owner |
-|------|-------------|--------|------------|-------|
-| [Third-party API failure] | Medium | High | [Implement fallback] | @dev |
-| [Database performance] | Low | Medium | [Optimize queries] | @dev |
+| Risk | Probability | Impact | Mitigation |
+|------|-------------|--------|------------|
+| Scraper blocked by website | Medium | High | Cache HTML, respect robots.txt, back-up CSV dump |
+| Model overfits rare songs | High | Medium | Use regularization & cross-validation |
+| Class imbalance | High | Medium | Class weights & threshold tuning |
 
 ### User Experience Risks
 
-| Risk | Probability | Impact | Mitigation | Owner |
-|------|-------------|--------|------------|-------|
-| [User confusion on main flow] | High | High | [User testing] | @dev |
-| [Mobile usability issues] | Medium | Medium | [Responsive design] | @dev |
+| Risk | Probability | Impact | Mitigation |
+|------|-------------|--------|------------|
+| Fans misinterpret probabilities | Medium | Medium | Include explanation tooltip |
 
 ### Business Risks
 
-| Risk | Probability | Impact | Mitigation | Owner |
-|------|-------------|--------|------------|-------|
-| [Low user adoption] | Medium | High | [MVP validation] | @dev |
-| [Competition launches first] | Low | Medium | [Focus on unique value] | @dev |
+| Risk | Probability | Impact | Mitigation |
+|------|-------------|--------|------------|
+| Low user adoption | Medium | High | MVP validation |
+| Competition launches first | Low | Medium | Focus on unique value |
 
 ## SECURITY & PRIVACY
 

@@ -53,6 +53,37 @@
 
 ## Historical Entries
 
+### Session 0 – 2025-07-19 Kickoff & Repo Setup
+
+#### 🔄 STATE OF CODEBASE
+
+- **Active Branch:** main
+- **Current Focus:** Project scaffolding & documentation
+- **Pending PRs/Issues:** N/A
+- **Test Status:** N/A
+- **Key Files Modified:** `prd.md`, `implementation_schedule.md`, `dev_log.md`
+
+#### ✅ WHAT WORKED
+
+- Agreed on project goals, scope, and 4-week roadmap
+- Filled PRD placeholders with concrete Goose-specific details
+
+#### ❌ WHAT DIDN'T
+
+- Markdown tables exceed 100-char limit (lint warnings flagged)
+
+#### 🔀 DECISIONS
+
+- Use tabular binary classification (log-reg → XGBoost) for MVP
+- Postpone Streamlit UI until after model evaluation
+
+#### 🏁 SESSION HANDOFF
+
+- **Stopping Point:** Core docs populated; ready to start data collection
+- **Next Immediate Task:** Scrape historical setlists and build song-show matrix CSV
+
+---
+
 (Add future session entries below using the template above)
 
 ---

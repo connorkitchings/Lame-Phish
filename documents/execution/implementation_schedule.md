@@ -1,4 +1,32 @@
-# Implementation Schedule
+<!-- markdownlint-disable MD013 MD033 MD055 MD056 -->
+# Implementation Schedule – Goose Setlist Prediction
+
+| Week | Focus | Key Deliverables |
+|------|-------|------------------|
+| 1 | Data discovery & extraction | • Scrape/collect historical setlists<br>• Clean & normalize into tabular song-show matrix (CSV/parquet)<br>• Commit raw + processed data artifacts |
+| 2 | Feature engineering & baseline model | • Engineer song-level features (last played gap, tour/venue tags, play frequency)<br>• Train baseline logistic-regression classifier<br>• Track metrics (precision, recall, PR curve) |
+| 3 | Model improvement & evaluation | • Iterate with XGBoost / LightGBM<br>• Handle class imbalance, tune hyper-params<br>• Produce evaluation report + confusion matrix<br>• Generate feature-importance visual (e.g., SHAP) |
+| 4 | Polish & optional Streamlit UI | • Finalize reproducible training script & README<br>• Build simple Streamlit app to upload upcoming show metadata and return top-25 predictions<br>• Prepare project write-up & shareable notebook |
+
+## Dependencies
+
+- **Data Access:** Stable scraping endpoint or exported CSV from ElGoose / setlist.fm.
+- **Libraries:** `pandas`, `scikit-learn`, `xgboost`, `streamlit` (optional), `shap`.
+- **Environment:** Python ≥3.9, Git with branch naming conventions from dev_log.
+
+## Risks & Mitigations
+
+| Risk | Probability | Impact | Mitigation |
+|------|-------------|--------|------------|
+| Site structure changes / scraping blocks | Med | High | Cache raw HTML responses; fall back to manual CSV dump |
+| Class imbalance hurts recall | High | Med | Use class-weighting, threshold tuning, ensemble methods |
+| Incomplete metadata (encores, guests) | Med | Low | Treat unknowns as NA; include boolean flags |
+
+## Rollback Plans
+
+- If feature engineering slows progress → fall back to last-played-gap + frequency only.
+- If XGBoost underperforms → stick with regularized logistic regression.
+- If Streamlit UI scope creep → deliver CLI notebook for predictions instead.
 
 ## Sprint Overview
 
