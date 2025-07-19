@@ -1,9 +1,37 @@
 [project]
-name = "vibe-coding"
+name = "goose-setlist-selector"
 version = "0.1.0"
-description = "Vibe Coding Project"
-authors = ["Your Name <connor.kitchings@gmail.com>"]
-dependencies = []
+description = "Goose Setlist Selector - Predict setlists for upcoming shows using historical data"
+authors = ["Connor Kitchings <connor.kitchings@gmail.com>"]
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.31.0",
+    "pandas>=2.0.0",
+    "scikit-learn>=1.3.0",
+    "xgboost>=1.7.0",
+    "numpy>=1.24.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.5.0",
+]
+ui = [
+    "streamlit>=1.25.0",
+    "plotly>=5.15.0",
+]
+analysis = [
+    "jupyter>=1.0.0",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "shap>=0.42.0",
+]
+
+[project.scripts]
+fetch-data = "scripts.fetch_data_clean:main"
 
 [tool.uv]
 # uv-specific config can go here if needed
